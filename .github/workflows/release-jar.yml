@@ -28,5 +28,5 @@ jobs:
         uses: actions/upload-artifact@v4
         if: ${{ !github.head_ref }}
         with:
-          name: groovy
+          name: kotlinc
           path: build/libs/kotlinc.jar
