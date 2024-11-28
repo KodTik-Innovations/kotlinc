@@ -18,8 +18,8 @@ package org.jetbrains.kotlin.utils
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.PathManager
-import org.jetbrains.kotlin.reflection.android.isDalvik
-import org.jetbrains.kotlin.reflection.android.isRunningAndroid
+import org.jetbrains.kotlin.reflection.android.AndroidSupport.isDalvik
+import org.jetbrains.kotlin.reflection.android.AndroidSupport.isRunningAndroid
 import java.io.File
 import java.nio.file.Paths
 import java.util.regex.Pattern

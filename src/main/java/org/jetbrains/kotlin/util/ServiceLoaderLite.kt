@@ -5,8 +5,9 @@
 
 package org.jetbrains.kotlin.util
 
-import org.jetbrains.kotlin.reflection.android.isDalvik
-import org.jetbrains.kotlin.reflection.android.isRunningAndroid
+import dalvik.system.PathClassLoader
+import org.jetbrains.kotlin.reflection.android.AndroidSupport.isDalvik
+import org.jetbrains.kotlin.reflection.android.AndroidSupport.isRunningAndroid
 import java.io.File
 import java.io.IOError
 import java.lang.Character.isJavaIdentifierPart
