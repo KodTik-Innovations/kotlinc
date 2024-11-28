@@ -1,0 +1,80 @@
+plugins { 
+    id 'java-library'   
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0' 
+    id 'com.github.johnrengelman.shadow' version '8.1.1' 
+    id 'maven-publish'   
+    id 'com.diffplug.spotless' version '6.25.0'
+    id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'       
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+spotless {
+    java {
+        target "**/*.java"		  
+        googleJavaFormat()
+    }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+tasks.assemble.dependsOn tasks.shadowJar
+tasks.build.dependsOn tasks.shadowJar
+
+shadowJar {  
+    exclude 'META-INF/maven/org.jetbrains/*/pom.xml'
+    exclude 'META-INF/maven/org.jetbrains/*/pom.properties'
+    
+    exclude 'com/google/common/**'
+    exclude 'org/jdom/**'
+    exclude 'kotlin/**'
+    exclude 'org/jetbrains/annotations/Nls**'         
+    
+    dependencies {
+        exclude(dependency('org.jetbrains.kotlin:kotlin-reflect:1.6.10'))
+        exclude(dependency('org.jetbrains.intellij.deps:trove4j:1.0.20200330'))
+        exclude(dependency('org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4'))
+        exclude(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.0'))       
+        exclude(dependency('org.jetbrains.kotlin:kotlin-script-runtime:2.1.0'))        
+        exclude(dependency('org.jetbrains:annotations:26.0.1'))          
+     }
+
+    archiveFileName.set("${project.name}.jar")   
+}
+	
+dependencies {
+    implementation 'org.jetbrains.kotlin:kotlin-compiler:2.1.0'    
+    implementation 'org.jetbrains:annotations:26.0.1'      
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->            
+            groupId = 'org.kodtik.ide'
+            artifactId = 'kotlinc'
+            version = '2.1.0' 
+         
+            from project.shadow.component(publication) 
+        }
+    }
+}

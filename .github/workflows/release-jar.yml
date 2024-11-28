@@ -1,0 +1,32 @@
+name: Java CI Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+                 
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew shadowJar
+
+      - name: Upload release kotlinc
+        uses: actions/upload-artifact@v4
+        if: ${{ !github.head_ref }}
+        with:
+          name: groovy
+          path: build/libs/kotlinc.jar
