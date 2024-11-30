@@ -103,13 +103,13 @@ fun CompilerConfiguration.configureJdkClasspathRoots() {
     val javaRoot = get(JVMConfigurationKeys.JDK_HOME) ?: File(System.getProperty("java.home"))
     val classesRoots = PathUtil.getJdkClassesRootsFromJdkOrJre(javaRoot)
 
-    if (!isRunningAndroid() || !isDalvik()) {
-        if (!CoreJrtFileSystem.isModularJdk(javaRoot)) {
-            if (classesRoots.isEmpty()) {
-                report(CompilerMessageSeverity.ERROR, "No class roots are found in the JDK path: $javaRoot")
-            } else {
-                addJvmSdkRoots(classesRoots)
-            }
+    if (isRunningAndroid() || isDalvik()) return
+
+    if (!CoreJrtFileSystem.isModularJdk(javaRoot)) {
+        if (classesRoots.isEmpty()) {
+            report(CompilerMessageSeverity.ERROR, "No class roots are found in the JDK path: $javaRoot")
+        } else {
+            addJvmSdkRoots(classesRoots)
         }
     }
 }
