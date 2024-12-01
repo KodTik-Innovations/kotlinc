@@ -2,6 +2,7 @@
 // Apache 2.0 license.
 package com.intellij.util.containers;
 
+import com.intellij.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +37,7 @@ public final class Unsafe {
     }
   }
 
-  static int getAndAddInt(Object object, long offset, int v) {
+  public static int getAndAddInt(Object object, long offset, int v) {
     try {
       return theUnsafe.getAndAddInt(object, offset, v);
     } catch (Throwable t) {
@@ -52,7 +53,7 @@ public final class Unsafe {
     }
   }
 
-  static boolean compareAndSwapObject(Object o, long offset, Object expected, Object x) {
+  public static boolean compareAndSwapObject(Object o, long offset, Object expected, Object x) {
     try {
       return theUnsafe.compareAndSwapObject(o, offset, expected, x);
     } catch (Throwable throwable) {
@@ -60,7 +61,7 @@ public final class Unsafe {
     }
   }
 
-  static void putObjectVolatile(Object o, long offset, Object x) {
+  public static void putObjectVolatile(Object o, long offset, Object x) {
     try {
       theUnsafe.putObjectVolatile(o, offset, x);
     } catch (Throwable throwable) {
@@ -142,27 +143,11 @@ public final class Unsafe {
   }
 
   public static sun.misc.Unsafe getUnsafe() {
-    try {
-      return sun.misc.Unsafe.getUnsafe();
-    } catch (SecurityException se) {
-      Class<sun.misc.Unsafe> type = sun.misc.Unsafe.class;
-      try {
-        Field field = type.getDeclaredField("theUnsafe");
-        field.setAccessible(true);
-        return type.cast(field.get(type));
-      } catch (Exception e) {
-        for (Field field : type.getDeclaredFields()) {
-          if (type.isAssignableFrom(field.getType())) {
-            field.setAccessible(true);
-            try {
-              return type.cast(field.get(type));
-            } catch (IllegalAccessException iae) {
-              throw new RuntimeException(iae);
-            }
-          }
-        }
-      }
+    Object unsafeObj = ReflectionUtil.getUnsafe();
+    if (unsafeObj == null) {
       throw new RuntimeException("Unsafe unavailable");
     }
+
+    return (sun.misc.Unsafe) unsafeObj;
   }
 }
