@@ -68,9 +68,12 @@ dependencies {
     implementation 'org.jetbrains:annotations:26.0.2'
     implementation 'com.github.KodTik-Innovations:the-unsafe:1.0.0'
    
-   // implementation 'org.jetbrains.kotlin:kotlin-scripting-jvm:2.1.10'
-  //  implementation 'org.jetbrains.kotlin:kotlin-script-util:1.8.22'
-  //  implementation 'org.jetbrains.kotlin:kotlin-scripting-common:2.1.10'
+    /* implementation 'org.jetbrains.kotlin:kotlin-script-util:1.8.22'
+      implementation 'org.jetbrains.kotlin:kotlin-script-runtime:2.1.10'       
+      implementation 'org.jetbrains.kotlin:kotlin-scripting-compiler:2.1.10'       
+      implementation 'org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.1.10'
+      implementation 'org.jetbrains.kotlin:kotlin-scripting-jvm:2.1.10'
+      implementation 'org.jetbrains.kotlin:kotlin-scripting-common:2.1.10' */
 
     compileOnly files('libs/android.jar')
 }
