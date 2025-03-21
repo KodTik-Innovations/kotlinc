@@ -57,6 +57,7 @@ shadowJar {
         exclude(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.20'))          
         exclude(dependency('org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.20'))       
         exclude(dependency('org.jetbrains.kotlin:kotlin-script-runtime:2.1.20'))        
+        exclude(dependency('org.jetbrains.kotlin:kotlin-stdlib:2.1.20'))       
         exclude(dependency('org.jetbrains:annotations:26.0.2'))    
         exclude(dependency('com.github.KodTik-Innovations:the-unsafe:1.0.0'))    
      }
