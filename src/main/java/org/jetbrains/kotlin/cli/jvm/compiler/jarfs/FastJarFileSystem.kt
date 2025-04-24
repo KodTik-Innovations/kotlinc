@@ -94,6 +94,7 @@ private val IS_PRIOR_9_JRE = System.getProperty("java.specification.version", ""
 
 private fun prepareCleanerCallback(): ((ByteBuffer) -> Unit)? {
     return try {
+        // deenu modify: android check
         if (isRunningAndroid() || isDalvik()) {
             val directByteBuffer = Class.forName("java.nio.DirectByteBuffer")
             if (directByteBuffer.declaredMethods.any { it.name == "cleaner" }.not()) {
@@ -104,7 +105,7 @@ private fun prepareCleanerCallback(): ((ByteBuffer) -> Unit)? {
 
             val clean = Class.forName("sun.misc.Cleaner").getMethod("clean")
             clean.isAccessible = true
-           
+            // deenu modify: fix format
             { buffer: ByteBuffer -> clean.invoke(cleaner.invoke(buffer)) }
         } else {
             if (IS_PRIOR_9_JRE) {
@@ -113,7 +114,7 @@ private fun prepareCleanerCallback(): ((ByteBuffer) -> Unit)? {
 
                 val clean = Class.forName("sun.misc.Cleaner").getMethod("clean")
                 clean.isAccessible = true
-               
+                // deenu modify: fix format
                 { buffer: ByteBuffer -> cleaner.invoke(buffer)?.let { clean.invoke(it) } }
             } else {
                 val unsafeClass =
@@ -132,7 +133,7 @@ private fun prepareCleanerCallback(): ((ByteBuffer) -> Unit)? {
                 theUnsafeField.isAccessible = true
 
                 val theUnsafe = theUnsafeField.get(null);
-
+                // deenu modify: fix format
                 { buffer: ByteBuffer -> clean.invoke(theUnsafe, buffer) }
             }
         }

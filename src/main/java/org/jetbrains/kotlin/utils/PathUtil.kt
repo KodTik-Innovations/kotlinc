@@ -173,6 +173,7 @@ object PathUtil {
 
     @JvmStatic
     fun getResourcePathForClass(aClass: Class<*>): File {
+        // deenu modify: android check
         val path =
             "/" + aClass.name.replace('.', '/') +
                 if (isRunningAndroid() || isDalvik()) ".clazz" else ".class"

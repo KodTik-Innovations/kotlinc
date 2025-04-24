@@ -47,7 +47,7 @@ object ServiceLoaderLite {
                     throw IllegalArgumentException("Only local URLs are supported, got ${url.protocol}")
                 }
             }
-
+        // deenu modify: android check
         if (isRunningAndroid() || isDalvik()) {
             val classpath =
                 classLoader.urLs.joinToString(separator = File.pathSeparator) {
@@ -67,7 +67,7 @@ object ServiceLoaderLite {
         classLoader: ClassLoader,
     ): MutableList<Service> {
         val implementations = mutableListOf<Service>()
-
+        // deenu modify: add try catch
         for (className in findImplementations(service, files)) {
             try {
                 val instance =

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 @ApiStatus.Internal
 public final class Unsafe {
-
+    // deenu modify: removed method handle
   private static final sun.misc.Unsafe theUnsafe;
 
   static {

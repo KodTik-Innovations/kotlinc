@@ -19,6 +19,7 @@
 
 package org.jetbrains.kotlin.reflection.android
 
+// deenu modify: add AndroidSupport
 object AndroidSupport {
     private val IS_ANDROID: Boolean =
         run {

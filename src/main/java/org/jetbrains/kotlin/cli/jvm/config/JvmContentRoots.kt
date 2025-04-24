@@ -103,6 +103,7 @@ fun CompilerConfiguration.configureJdkClasspathRoots() {
     val javaRoot = get(JVMConfigurationKeys.JDK_HOME) ?: File(System.getProperty("java.home"))
     val classesRoots = PathUtil.getJdkClassesRootsFromJdkOrJre(javaRoot)
 
+    // deenu modify: android check
     if (isRunningAndroid() || isDalvik()) return
 
     if (!CoreJrtFileSystem.isModularJdk(javaRoot)) {
