@@ -1,9 +1,9 @@
 plugins { 
     id 'java-library'   
-    id 'org.jetbrains.kotlin.jvm' version '2.1.20' 
+    id 'org.jetbrains.kotlin.jvm' version '2.2.0-Beta2' 
     id 'com.github.johnrengelman.shadow' version '8.1.1' 
     id 'maven-publish'   
-    id 'com.diffplug.spotless' version '6.25.0'
+    id 'com.diffplug.spotless' version '7.0.3'
     id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'       
 }
 
@@ -16,7 +16,7 @@ repositories {
 // Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(24)
     }
 }
 
@@ -28,13 +28,13 @@ spotless {
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_24
+    targetCompatibility = JavaVersion.VERSION_24
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
-        jvmTarget = "21"
+        jvmTarget = "24"
     }
 }
 
