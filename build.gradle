@@ -57,6 +57,8 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-daemon-embeddable:2.0.21'
     implementation 'org.jetbrains.intellij.deps:trove4j:1.0.20200330'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4'
+    
+    compileOnly("com.github.KodTik-Innovations:the-unsafe:1.0.0")
 
     compileOnly project(path: ':android-stubs')     
 }
