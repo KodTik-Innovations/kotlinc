@@ -4,3 +4,5 @@ plugins {
 }
 
 rootProject.name = 'kotlinc'
+
+include(":android-stubs")

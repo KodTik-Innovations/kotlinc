@@ -1,0 +1,16 @@
+plugins { 
+    id 'java-library'
+    id 'com.diffplug.spotless' version '7.0.3'
+}
+
+spotless {
+    java {
+        target "**/*.java"		  
+        googleJavaFormat()
+    }
+} 
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}
