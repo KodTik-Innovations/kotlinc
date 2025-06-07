@@ -70,7 +70,9 @@ shadowJar {
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))
  
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
-    
+       
+        exclude(dependency("com.github.KodTik-Innovations:java-stubs:1.2.0"))
+
         exclude(dependency("com.github.KodTik-Innovations:the-unsafe:1.0.0"))
      }
    
@@ -105,7 +107,9 @@ dependencies {
     // implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
  
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
-    
+  
+    implementation("com.github.KodTik-Innovations:java-stubs:1.2.0")
+
     compileOnly("com.github.KodTik-Innovations:the-unsafe:1.0.0")
 
     compileOnly project(path: ':android-stubs')     
