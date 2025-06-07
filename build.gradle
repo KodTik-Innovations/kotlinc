@@ -46,18 +46,33 @@ shadowJar {
 }
 	
 dependencies {    
-    implementation 'org.jetbrains.kotlin:kotlin-compiler-embeddable:2.0.21'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib:2.0.21'
-    // implementation 'org.jetbrains:annotations:13.0' 
-    implementation 'org.jetbrains:annotations:26.0.2'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-common:2.0.21'
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0'
-    implementation 'org.jetbrains.kotlin:kotlin-script-runtime:2.0.21'
-    implementation 'org.jetbrains.kotlin:kotlin-reflect:1.6.10'
-    implementation 'org.jetbrains.kotlin:kotlin-daemon-embeddable:2.0.21'
-    implementation 'org.jetbrains.intellij.deps:trove4j:1.0.20200330'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4'
+    // implementation("org.jetbrains:annotations:13.0") 
+    implementation("org.jetbrains:annotations:26.0.2")
+    
+    implementation("org.jetbrains.intellij.deps:trove4j:1.0.20200330")
+    
+    implementation("org.jetbrains.kotlin:kotlin-assignment-compiler-plugin-embeddable:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.0.21")    
+    implementation("org.jetbrains.kotlin:kotlin-daemon-embeddable:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.21") 
+    implementation("org.jetbrains.kotlin:kotlin-sam-with-receiver-compiler-plugin:2.0.21")
+    
+    implementation("org.jetbrains.kotlin:kotlin-script-runtime:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-common:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.0.21")
+    
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:2.0.21") 
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21")
+    // implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-common:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21")
+    // implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0")
+    // implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+ 
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
     
     compileOnly("com.github.KodTik-Innovations:the-unsafe:1.0.0")
 
