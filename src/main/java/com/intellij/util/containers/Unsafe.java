@@ -1,8 +1,8 @@
 // Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the
 // Apache 2.0 license.
-package org.jetbrains.kotlin.com.intellij.util.containers;
+package com.intellij.util.containers;
 
-import org.jetbrains.kotlin.com.intellij.util.ReflectionUtil;
+import com.intellij.util.ReflectionUtil;
 import java.lang.reflect.Field;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;

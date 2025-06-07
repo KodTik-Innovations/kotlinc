@@ -8,9 +8,17 @@ plugins {
 }
 
 repositories {
-    // Use Maven Central for resolving dependencies.
+    gradlePluginPortal()
+    google()
     mavenCentral()
-    maven { url 'https://jitpack.io' }
+    maven { url "https://jitpack.io" } 
+	maven { url "https://plugins.gradle.org/m2/" } 
+    maven { url 'https://repo.jenkins-ci.org/public/' }
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://releases.usethesource.io/maven/' }
+    maven { url "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies" }
+    maven { url "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/" }
+    mavenLocal()
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -42,22 +50,51 @@ tasks.assemble.dependsOn tasks.shadowJar
 tasks.build.dependsOn tasks.shadowJar
 
 shadowJar {  
+    exclude 'META-INF/maven/org.jetbrains/*/pom.xml'
+    exclude 'META-INF/maven/org.jetbrains/*/pom.properties'
+ 
+    exclude 'org/jetbrains/kotlin/com/**'
+    exclude 'org/jetbrains/kotlin/it/**'
+    exclude 'org/jetbrains/kotlin/javax/**'
+    exclude 'org/jetbrains/kotlin/kotlinx/**'
+    exclude 'org/jetbrains/kotlin/net/**'
+    exclude 'org/jetbrains/kotlin/one/**' 
+    exclude 'org/jetbrains/kotlin/org/**'
+    
+    exclude 'com/google/**'
+    exclude 'org/jdom/**'
+    exclude 'kotlin/**'
+    exclude 'kotlinx/**'
+    exclude 'org/jetbrains/annotations/Nls**'         
+    exclude 'com/fasterxml/**'
+    exclude 'com/sun/**'  
+    exclude 'it/unimi/**'  
+    exclude 'javaslang/**'
+    exclude 'javax/inject/**'  
+    exclude 'one/util/**'  
+    exclude 'net/jpountz/**'
+    exclude 'org/apache/**'  
+    exclude 'org/codehaus/**'  
+    exclude 'org/fusesource/**'  
+    exclude 'org/jline/**'  
+    exclude 'org/picocontainer/**'    
+        
     dependencies {
         exclude(dependency("org.jetbrains:annotations:13.0")) 
-        exclude(dependency("org.jetbrains:annotations:26.0.2"))
+        exclude(dependency("org.jetbrains:annotations:24.0.1"))
     
         exclude(dependency("org.jetbrains.intellij.deps:trove4j:1.0.20200330"))
-    
-        exclude(dependency("org.jetbrains.kotlin:kotlin-assignment-compiler-plugin-embeddable:2.0.21"))
-        
-        exclude(dependency("org.jetbrains.kotlin:kotlin-daemon-embeddable:2.0.21"))
+            
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:2.0.21")) 
-        exclude(dependency("org.jetbrains.kotlin:kotlin-sam-with-receiver-compiler-plugin:2.0.21"))
-    
+
         exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.0.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:2.0.21"))
+        
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.0.21"))
+        // exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:2.0.21"))
+        // exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:2.0.21"))
+   
         exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm:2.0.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.0.21"))
     
@@ -68,7 +105,7 @@ shadowJar {
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))
- 
+         
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
        
         exclude(dependency("com.github.KodTik-Innovations:java-stubs:1.2.0"))
@@ -79,22 +116,26 @@ shadowJar {
     archiveFileName.set("${project.name}.jar")   
 }
 	
-dependencies {    
+dependencies { 
+       
     // implementation("org.jetbrains:annotations:13.0") 
-    implementation("org.jetbrains:annotations:26.0.2")
+    implementation("org.jetbrains:annotations:24.0.1")
     
     implementation("org.jetbrains.intellij.deps:trove4j:1.0.20200330")
     
-    implementation("org.jetbrains.kotlin:kotlin-assignment-compiler-plugin-embeddable:2.0.21")
-    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.0.21")    
-    implementation("org.jetbrains.kotlin:kotlin-daemon-embeddable:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-compiler:2.0.21")    
+    // implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.0.21")    
+    
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.21") 
-    implementation("org.jetbrains.kotlin:kotlin-sam-with-receiver-compiler-plugin:2.0.21")
     
     implementation("org.jetbrains.kotlin:kotlin-script-runtime:2.0.21")
     implementation("org.jetbrains.kotlin:kotlin-scripting-common:2.0.21")
-    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:2.0.21")
-    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:2.0.21")
+    
+    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler:2.0.21")
+    implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.0.21")
+    // implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-embeddable:2.0.21")
+    // implementation("org.jetbrains.kotlin:kotlin-scripting-compiler-impl-embeddable:2.0.21")
+
     implementation("org.jetbrains.kotlin:kotlin-scripting-jvm:2.0.21")
     implementation("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.0.21")
     
@@ -104,7 +145,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-common:2.0.21")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21")
     // implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0")
-    // implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")
+    // implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.10")   
  
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4")
   
