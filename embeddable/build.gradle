@@ -1,0 +1,49 @@
+plugins { 
+    id 'java-library'   
+    id 'maven-publish'   
+    id 'com.github.johnrengelman.shadow' version '8.1.1' 
+}
+
+repositories {
+    gradlePluginPortal()
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" } 
+	maven { url "https://plugins.gradle.org/m2/" } 
+    maven { url 'https://repo.jenkins-ci.org/public/' }
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://releases.usethesource.io/maven/' }
+    maven { url "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies" }
+    maven { url "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/" }
+    mavenLocal()
+}
+
+// Apply a specific Java toolchain to ease working on different environments.
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(24)
+    }
+}
+
+tasks.assemble.dependsOn tasks.shadowJar
+tasks.build.dependsOn tasks.shadowJar
+
+shadowJar {                    
+    archiveFileName.set("${project.name}.jar")   
+}
+	
+dependencies { 
+    implementation project(path: ':lib')   
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->            
+            groupId = 'org.kodtik.ide'
+            artifactId = 'kotlinc-embeddable'
+            version = '2.0.21' 
+         
+            from project.shadow.component(publication) 
+        }
+    }
+}

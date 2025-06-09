@@ -1,0 +1,192 @@
+import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.*
+import org.objectweb.asm.*
+import org.objectweb.asm.commons.*
+import java.util.jar.*
+import java.util.zip.*
+
+buildscript {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        maven { url "https://plugins.gradle.org/m2/" }
+        maven { url 'https://repo.jenkins-ci.org/public/' }
+        maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+        mavenLocal()
+    }
+    dependencies {
+        classpath "org.ow2.asm:asm:9.8"
+        classpath "org.ow2.asm:asm-commons:9.8"
+        classpath "org.ow2.asm:asm-tree:9.8"
+        classpath "com.google.googlejavaformat:google-java-format:1.27.0"
+    }
+}
+
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21' 
+    id 'com.diffplug.spotless' version '7.0.3'
+    id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'   
+    id 'com.github.johnrengelman.shadow' version '8.1.1' 
+    id 'maven-publish'       
+}
+
+repositories {
+    gradlePluginPortal()
+    google()
+    mavenCentral()
+    maven { url "https://jitpack.io" } 
+	maven { url "https://plugins.gradle.org/m2/" } 
+    maven { url 'https://repo.jenkins-ci.org/public/' }
+    maven { url 'https://repo.gradle.org/gradle/libs-releases' }
+    maven { url 'https://releases.usethesource.io/maven/' }
+    maven { url "https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-dependencies" }
+    maven { url "https://packages.jetbrains.team/maven/p/ij/intellij-dependencies/" }
+    mavenLocal()
+}
+
+
+spotless {
+    java {
+        target "**/*.java"		  
+        googleJavaFormat()
+    }
+} 
+
+apply plugin: RemapingPlugin
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+tasks.assemble.dependsOn tasks.shadowJar
+tasks.build.dependsOn tasks.shadowJar
+
+shadowJar {  
+    exclude 'META-INF/maven/org.jetbrains/*/pom.xml'
+    exclude 'META-INF/maven/org.jetbrains/*/pom.properties'
+
+    dependencies {
+        exclude(dependency("org.jetbrains:annotations:13.0")) 
+        exclude(dependency("org.jetbrains:annotations:24.0.1"))    
+        exclude(dependency("org.jetbrains.intellij.deps:trove4j:1.0.20200330"))            
+        exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:2.0.21"))     
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")) 
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-common:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))         
+        exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
+       
+        exclude(dependency("com.github.KodTik-Innovations:java-stubs:1.2.0"))
+
+        exclude(dependency("com.github.KodTik-Innovations:the-unsafe:1.0.0"))
+     }
+                      
+    archiveFileName.set("${project.parent.name}.jar")   
+}
+
+dependencies {    
+    compileOnly("org.jetbrains:annotations:24.0.1")
+    compileOnly("org.jetbrains.kotlin:kotlin-compiler:2.0.21")    
+    
+    compileOnly("com.github.KodTik-Innovations:the-unsafe:1.0.0")
+
+    compileOnly project(path: ':android-stubs')     
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->            
+            groupId = 'org.kodtik.ide'
+            artifactId = 'kotlinc'
+            version = '2.0.21' 
+         
+            from project.shadow.component(publication) 
+        }
+    }
+}
+
+class RemapingPlugin implements Plugin<Project> {
+    void apply(Project target) {
+        target.tasks.register("remap", RemapingTask) {
+            it.dependsOn target.tasks.named("jar")
+        }
+
+        target.tasks.assemble.dependsOn target.tasks.named("remap")
+        target.tasks.build.dependsOn target.tasks.named("remap")
+    }
+}
+
+abstract class RemapingTask extends DefaultTask {
+
+    @InputFile
+    final RegularFileProperty inputJar = project.objects.fileProperty()
+
+    @OutputFile
+    final RegularFileProperty outputJar = project.objects.fileProperty()
+
+    RemapingTask() {
+        inputJar.set(project.tasks.named("jar").flatMap { it.archiveFile })
+        outputJar.set(new File(project.buildDir, "libs/${project.name}-embeddable.jar"))
+    }
+
+    @TaskAction
+    void remap() {
+        File originalJar = inputJar.get().asFile
+        File outputJarFile = outputJar.get().asFile
+        File tempJar = new File(project.buildDir, "tmp/libs/${project.name}.jar")
+
+        tempJar.parentFile.mkdirs()
+        outputJarFile.parentFile.mkdirs()
+
+        tempJar.delete()
+        tempJar << originalJar.bytes
+
+        def remapper = new Remapper() {
+            @Override
+            String map(String name) {                
+                if (name.startsWith("com/intellij")) return name.replaceFirst("^com/intellij", "org/jetbrains/kotlin/com/intellij")
+                return name
+            }
+        }
+
+        try (
+            JarFile jar = new JarFile(tempJar)
+            ZipOutputStream out = new ZipOutputStream(new FileOutputStream(outputJarFile))
+        ) {
+            Enumeration<JarEntry> entries = jar.entries()
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement()
+                InputStream entryStream = jar.getInputStream(entry)
+
+                if (entry.getName().endsWith(".class")) {
+                    ClassReader reader = new ClassReader(entryStream)
+                    ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES)
+                    ClassRemapper remapperVisitor = new ClassRemapper(writer, remapper)
+                    reader.accept(remapperVisitor, ClassReader.EXPAND_FRAMES)
+                    byte[] remappedBytes = writer.toByteArray()
+                    String newName = remapper.map(entry.getName())
+                    out.putNextEntry(new ZipEntry(newName))
+                    out.write(remappedBytes)
+                } else {
+                    out.putNextEntry(new ZipEntry(entry.getName()))
+                    out.write(entryStream.readAllBytes())
+                }
+                out.closeEntry()
+                entryStream.close()
+            }
+        }
+    }
+}
