@@ -88,7 +88,13 @@ shadowJar {
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))         
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
-       
+        exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.0.21"))
+   
         exclude(dependency("com.github.KodTik-Innovations:java-stubs:1.2.0"))
 
         exclude(dependency("com.github.KodTik-Innovations:the-unsafe:1.0.0"))
@@ -97,10 +103,11 @@ shadowJar {
     archiveFileName.set("${project.parent.name}.jar")   
 }
 
-dependencies {    
+dependencies {  
+    implementation("org.jetbrains.kotlin:kotlin-compiler:2.0.21")    
+  
     compileOnly("org.jetbrains:annotations:24.0.1")
-    compileOnly("org.jetbrains.kotlin:kotlin-compiler:2.0.21")    
-    
+        
     compileOnly("com.github.KodTik-Innovations:the-unsafe:1.0.0")
 
     compileOnly project(path: ':android-stubs')     
@@ -110,7 +117,7 @@ publishing {
     publications {
         shadow(MavenPublication) { publication ->            
             groupId = 'org.kodtik.ide'
-            artifactId = 'kotlinc'
+            artifactId = '${project.name}'
             version = '2.0.21' 
          
             from project.shadow.component(publication) 
