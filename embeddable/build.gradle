@@ -68,7 +68,7 @@ publishing {
     publications {
         shadow(MavenPublication) { publication ->            
             groupId = 'org.kodtik.ide'
-            artifactId = '${project.parent.name}-${project.name}'
+            artifactId = "${project.parent.name}-${project.name}"
             version = '2.0.21' 
          
             from project.shadow.component(publication) 
