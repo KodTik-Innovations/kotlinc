@@ -35,7 +35,29 @@ tasks.build.dependsOn tasks.shadowJar
 shadowJar {  
     exclude 'META-INF/maven/org.jetbrains/*/pom.xml'
     exclude 'META-INF/maven/org.jetbrains/*/pom.properties'
+    exclude 'META-INF/native-image/**'
+    exclude 'META-INF/services/org/**'
+    exclude 'META-INF/maven/org.jetbrains/*/pom.properties'
+     
+    exclude 'com/**'    
+    exclude 'io/**'
+    exclude 'it/**'
+    exclude 'javax/**'
+    exclude 'kotlin/**'
+    exclude 'kotlinx/**'
+    exclude 'net/**'
+    exclude 'one/**'    
+    exclude 'org/apache/**'    
+    exclude 'org/codehaus/**'    
+    exclude 'org/fusesource/**'    
+    exclude 'org/jdom/**' 
+    exclude 'org/jetbrains/org/**'       
+    exclude 'org/jline/**'      
+    exclude 'org/picocontainer/**'    
+    
+    exclude '**/*org/jetbrains/annotations/Nls*'
 
+    
     dependencies {
         exclude(dependency("org.jetbrains:annotations:13.0")) 
         exclude(dependency("org.jetbrains:annotations:23.0.0")) 
@@ -63,7 +85,7 @@ shadowJar {
         exclude(dependency("com.github.KodTik-Innovations:the-unsafe:1.0.0"))
      }
                       
-    archiveFileName.set("${project.parent.name}.jar")   
+    archiveFileName.set("${project.parent.name}-${project.name}.jar")   
 }
 
 dependencies {     

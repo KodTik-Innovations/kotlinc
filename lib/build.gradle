@@ -74,6 +74,8 @@ tasks.build.dependsOn tasks.shadowJar
 shadowJar {  
     exclude 'META-INF/maven/org.jetbrains/*/pom.xml'
     exclude 'META-INF/maven/org.jetbrains/*/pom.properties'
+        
+    exclude '**/*org/jetbrains/annotations/Nls*'
 
     dependencies {
         exclude(dependency("org.jetbrains:annotations:13.0")) 

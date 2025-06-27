@@ -28,7 +28,9 @@ java {
 tasks.assemble.dependsOn tasks.shadowJar
 tasks.build.dependsOn tasks.shadowJar
 
-shadowJar { 
+shadowJar {    
+    exclude 'kotlin/**'    
+    
     dependencies {
         exclude(dependency("org.jetbrains.kotlin:kotlin-compiler:2.1.21")) 
         exclude(dependency("org.jetbrains:annotations:13.0")) 
