@@ -26,7 +26,7 @@ buildscript {
 
 plugins {
     id 'java-library'
-    id 'org.jetbrains.kotlin.jvm' version '2.0.21' 
+    id 'org.jetbrains.kotlin.jvm' version '2.1.21' 
     id 'com.diffplug.spotless' version '7.0.3'
     id 'org.jlleitschuh.gradle.ktlint' version '12.1.0'   
     id 'com.github.johnrengelman.shadow' version '8.1.1' 
@@ -79,21 +79,21 @@ shadowJar {
         exclude(dependency("org.jetbrains:annotations:13.0")) 
         exclude(dependency("org.jetbrains:annotations:24.0.1"))    
         exclude(dependency("org.jetbrains.intellij.deps:trove4j:1.0.20200330"))            
-        exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:2.0.21"))     
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib:2.0.21")) 
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:2.1.21"))     
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib:2.1.21")) 
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-common:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-common:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))         
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm:2.0.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.0.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.1.21"))
    
         exclude(dependency("com.github.KodTik-Innovations:java-stubs:1.2.0"))
 
@@ -104,7 +104,7 @@ shadowJar {
 }
 
 dependencies {  
-    implementation("org.jetbrains.kotlin:kotlin-compiler:2.0.21")    
+    implementation("org.jetbrains.kotlin:kotlin-compiler:2.1.21")    
   
     compileOnly("org.jetbrains:annotations:24.0.1")
         
@@ -118,7 +118,7 @@ publishing {
         shadow(MavenPublication) { publication ->            
             groupId = 'org.kodtik.ide'
             artifactId = "${project.name}"
-            version = '2.0.21' 
+            version = '2.1.21' 
          
             from project.shadow.component(publication) 
         }
