@@ -87,6 +87,7 @@ shadowJar {
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))         
+        exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0"))
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.1.21"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.1.21"))
