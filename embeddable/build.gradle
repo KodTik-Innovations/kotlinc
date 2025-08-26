@@ -37,28 +37,28 @@ shadowJar {
     exclude 'kotlin/**'    
     
     dependencies {
-        exclude(dependency("org.jetbrains.kotlin:kotlin-compiler:2.1.21")) 
+        exclude(dependency("org.jetbrains.kotlin:kotlin-compiler:2.2.20-RC")) 
         exclude(dependency("org.jetbrains:annotations:13.0")) 
         exclude(dependency("org.jetbrains:annotations:23.0.0"))   
         exclude(dependency("org.jetbrains:annotations:24.0.1"))    
         exclude(dependency("org.jetbrains.intellij.deps:trove4j:1.0.20200330"))            
-        exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:2.1.21"))     
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib:2.1.21")) 
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:2.2.20-RC"))     
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib:2.2.20-RC")) 
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.20-RC"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-common:2.1.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-common:2.2.20-RC"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:2.2.20-RC"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0"))
         exclude(dependency("org.jetbrains.kotlin:kotlin-reflect:1.6.10"))         
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.0"))
         exclude(dependency("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.6.4"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.1.21"))        
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.1.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler:2.1.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.1.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm:2.1.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.1.21"))
-        exclude(dependency("org.jetbrains.kotlin:kotlin-daemon-embeddable:2.1.21"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-script-runtime:2.2.20-RC"))        
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-common:2.2.20-RC"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler:2.2.20-RC"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-compiler-impl:2.2.20-RC"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm:2.2.20-RC"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-scripting-jvm-host:2.2.20-RC"))
+        exclude(dependency("org.jetbrains.kotlin:kotlin-daemon-embeddable:2.2.20-RC"))
     
         exclude(dependency("com.github.KodTik-Innovations:java-stubs:1.2.0"))
         exclude(dependency("com.github.KodTik-Innovations:the-unsafe:1.0.0"))
@@ -68,9 +68,9 @@ shadowJar {
 }
 	
 dependencies { 
-    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.1.21") 
+    implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:2.2.20-RC") 
    
-    implementation files("${project(":lib").buildDir}/libs/lib-embeddable.jar")
+    implementation files("${project(":lib").buildDir}/libs/lib-${project.name}.jar")
 }
 
 publishing {
@@ -78,7 +78,7 @@ publishing {
         shadow(MavenPublication) { publication ->            
             groupId = 'org.kodtik.ide'
             artifactId = "${project.parent.name}-${project.name}"
-            version = '2.1.21' 
+            version = '2.2.20-RC' 
          
             from project.shadow.component(publication) 
         }

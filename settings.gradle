@@ -8,4 +8,3 @@ rootProject.name = 'kotlinc'
 include(":android-stubs")
 include(":lib")
 include(":embeddable")
-include(":minimal")
