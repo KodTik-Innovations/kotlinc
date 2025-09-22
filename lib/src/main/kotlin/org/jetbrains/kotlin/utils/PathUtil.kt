@@ -171,7 +171,7 @@ object PathUtil {
         get() = getResourcePathForClass(PathUtil::class.java)
 
     @JvmStatic
-    fun getResourcePathForClass(aClass: Class<*>): File {
+    fun getResourcePathForClass(aClass: Class<*>): File {        
         // deenu modify: android check
         val path =
             "/" + aClass.name.replace('.', '/') +
