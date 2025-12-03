@@ -17,9 +17,9 @@ buildscript {
         mavenLocal()
     }
     dependencies {
-        classpath "org.ow2.asm:asm:9.8"
-        classpath "org.ow2.asm:asm-commons:9.8"
-        classpath "org.ow2.asm:asm-tree:9.8"
+        classpath "org.ow2.asm:asm:9.9"
+        classpath "org.ow2.asm:asm-commons:9.9"
+        classpath "org.ow2.asm:asm-tree:9.9"
         classpath "com.google.googlejavaformat:google-java-format:1.27.0"
     }
 }
