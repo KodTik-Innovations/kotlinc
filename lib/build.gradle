@@ -110,6 +110,7 @@ shadowJar {
      }
                       
     archiveFileName.set("${project.parent.name}.jar")   
+    archiveClassifier.set("") 
 }
 
 dependencies {  
@@ -127,7 +128,7 @@ publishing {
         shadow(MavenPublication) { publication ->            
             groupId = 'org.kodtik.ide'
             artifactId = "${project.name}"
-            version = '2.3.0-RC-beta01'
+            version = '2.3.0-RC-beta02'
             
             from(components.shadow)
         }
