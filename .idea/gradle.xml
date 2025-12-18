@@ -9,10 +9,10 @@
         <option name="gradleJvm" value="21" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/android-stubs" />
-            <option value="$PROJECT_DIR$/embeddable" />
-            <option value="$PROJECT_DIR$/lib" />
+            <option value="/storage/emulated/0/Projects/kotlinc" />
+            <option value="/storage/emulated/0/Projects/kotlinc/android-stubs" />
+            <option value="/storage/emulated/0/Projects/kotlinc/embeddable" />
+            <option value="/storage/emulated/0/Projects/kotlinc/lib" />
           </set>
         </option>
       </GradleProjectSettings>
