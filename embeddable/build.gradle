@@ -75,7 +75,7 @@ dependencies {
 publishing {
     publications {
         shadow(MavenPublication) { publication ->            
-            groupId = 'org.kodtik.ide'
+            groupId = 'org.kodtik.innovations'
             artifactId = "${project.parent.name}-${project.name}"
             version = '2.3.0-beta01' 
          
