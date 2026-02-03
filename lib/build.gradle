@@ -190,7 +190,7 @@ abstract class RemapingTask extends DefaultTask {
 
                 if (entry.getName().endsWith(".class")) {
                     ClassReader reader = new ClassReader(entryStream)
-                    ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_FRAMES)
+                    ClassWriter writer = new ClassWriter(0) //ClassWriter.COMPUTE_FRAMES)
                     ClassRemapper remapperVisitor = new ClassRemapper(writer, remapper)
                     reader.accept(remapperVisitor, ClassReader.EXPAND_FRAMES)
                     byte[] remappedBytes = writer.toByteArray()
