@@ -28,10 +28,10 @@ jobs:
         uses: actions/upload-artifact@v5
         with:
           name: lib
-          path: lib/build/libs
+          path: lib/build/libs/kotlinc.jar
 
       - name: Upload Embeddable Jar
         uses: actions/upload-artifact@v5
         with:
           name: kotlinc-embeddable
-          path: embeddable/build/libs
+          path: embeddable/build/libs/kotlinc-embeddable.jar
