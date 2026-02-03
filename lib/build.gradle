@@ -38,7 +38,7 @@ repositories {
     google()
     mavenCentral()
     maven { url "https://jitpack.io" } 
-	maven { url "https://plugins.gradle.org/m2/" } 
+    maven { url "https://plugins.gradle.org/m2/" } 
     maven { url 'https://repo.jenkins-ci.org/public/' }
     maven { url 'https://repo.gradle.org/gradle/libs-releases' }
     maven { url 'https://releases.usethesource.io/maven/' }
@@ -50,7 +50,7 @@ repositories {
 
 spotless {
     java {
-        target "**/*.java"		  
+        target "**/*.java"          
         googleJavaFormat()
     }
 } 
@@ -190,9 +190,15 @@ abstract class RemapingTask extends DefaultTask {
 
                 if (entry.getName().endsWith(".class")) {
                     ClassReader reader = new ClassReader(entryStream)
-                    ClassWriter writer = new ClassWriter(0) //ClassWriter.COMPUTE_FRAMES)
+                    
+                    // FIXED: Disabled frame computation
+                    ClassWriter writer = new ClassWriter(0) 
+                    
                     ClassRemapper remapperVisitor = new ClassRemapper(writer, remapper)
-                    reader.accept(remapperVisitor, ClassReader.EXPAND_FRAMES)
+                    
+                    // FIXED: Changed EXPAND_FRAMES to 0 to prevent ASM from trying to resolve missing types
+                    reader.accept(remapperVisitor, 0)
+                    
                     byte[] remappedBytes = writer.toByteArray()
                     String newName = remapper.map(entry.getName())
                     out.putNextEntry(new ZipEntry(newName))
