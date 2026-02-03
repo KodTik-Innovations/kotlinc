@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
-                 
+
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
@@ -23,10 +23,15 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew shadowJar
-
-      - name: Upload release kotlinc
+        
+      - name: Upload Lib Jar
         uses: actions/upload-artifact@v5
-        if: ${{ !github.head_ref }}
         with:
-          name: kotlinc
-          path: build/libs/kotlinc.jar
+          name: lib
+          path: lib/build/libs
+
+      - name: Upload Embeddable Jar
+        uses: actions/upload-artifact@v5
+        with:
+          name: kotlinc-embeddable
+          path: embeddable/build/libs
